@@ -1,0 +1,1 @@
+{"name":"spectrum-sprites-no-rules-raceway","private":true,"version":"0.0.1","type":"module","scripts":{"build":"node tools/build.mjs","build:check":"node tools/build.mjs --enforce","serve":"npx serve ."},"devDependencies":{"esbuild":"0.24.2","terser":"5.44.0","roadroller":"2.1.0","@gfx/zopfli":"1.0.15"}}

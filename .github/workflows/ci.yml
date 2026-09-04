@@ -1,0 +1,26 @@
+name: sanity
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: for f in src/*.js; do node --check "$f"; done
+      - run: npm run build:check
+      - run: unzip -t dist/game.zip
+      - run: |
+          mkdir smoke
+          unzip -q dist/game.zip -d smoke
+          google-chrome --headless --no-sandbox --disable-gpu --hide-scrollbars --run-all-compositor-stages-before-draw --virtual-time-budget=1200 --window-size=1280,720 --screenshot=smoke.png file://$PWD/smoke/index.html
+          test -s smoke.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packed-build
+          path: |
+            smoke.png
+            smoke/index.html
+            dist/game.zip

@@ -1,0 +1,1 @@
+export function lapMods(lap,i,s){let l=Math.max(1,Math.min(3,lap)),w=1,event=s.event;if(l>1&&s.mutate)w*=l==2?.93:.84;if(l==3&&!s.guard)w*=.96;if(l>1&&s.alt==1&&i%96>84)event=1;if(l==3&&s.alt==2&&i%128>116)event=1;return{w,event,chaos:(l-1)/2}}
